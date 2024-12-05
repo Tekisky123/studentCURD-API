@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDB from "./config/connectDB.js";
 import studentRoutes from "./routes/studentRoutes.js";
 
@@ -9,6 +10,13 @@ const app = express();
 
 connectDB();
 
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 
 app.use("/student", studentRoutes);
